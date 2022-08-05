@@ -1,1 +1,1 @@
-# custom_theme
+# wordpress_custom_theme
