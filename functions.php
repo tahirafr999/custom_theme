@@ -47,6 +47,11 @@ function theme_setup(){
 		'default-repeat' => 'no-repeat'
 	]);
 
+	register_nav_menus([
+		'aquila-header-menu' => esc_html__('Header Menu','aquila'),
+		'aquila-footer-menu' => esc_html__('Footer Menu','aquila')
+	]);
+
 	add_theme_support('post-thumbnails');
 
 	add_theme_support( 'align-wide' );
@@ -77,7 +82,35 @@ function theme_setup(){
 
 add_action('after_setup_theme','theme_setup');
 
+function add_class_li($classess,$item,$args){
+	if(isset($args->li_class)){
+		$classes[] = $args->li_class;
+	}
+	return $classes;
+
+	if(isset($args->active_class)&& in_array('current-menu-item',$classes)){
+		$classes[] = $args->active_class;
+	}
+	return $classes;
+}
+add_filter('nav_menu_css_class','add_class_li',10,3);
 
 
+function add_anchor_class($attr,$item,$args){
+	if(isset($args->a_class)){
+		$attr['class'] = $args->a_class;
+	}
+	return $attr;
+}
+add_filter('nav_menu_link_attributes','add_anchor_class',10,3);
+
+
+/**
+ * Register Custom Navigation Walker
+ */
+function register_navwalker(){
+	require_once get_template_directory() . '/include/class-wp-bootstrap-navwalker.php';
+}
+add_action( 'after_setup_theme', 'register_navwalker' );
 
 ?>
