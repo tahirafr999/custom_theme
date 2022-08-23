@@ -11,6 +11,9 @@
 
 
 
-<footer>Footer</footer>
+<footer></footer>
+
+  </div>
+</div>
 </body>
 </html>
